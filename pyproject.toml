@@ -1,0 +1,13 @@
+[tool.black]
+line-length = 110
+skip-string-normalization = true
+string-normalization = false
+target-version = ['py310']
+include = '\.pyi?$'
+exclude = '''
+/(
+  | \.git
+  | \.venv
+  | docker
+)/
+'''
