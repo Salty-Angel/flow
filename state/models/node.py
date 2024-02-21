@@ -10,6 +10,7 @@ class NodeType(models.TextChoices):
 class Node(models.Model):
     can_be_completed_by = models.ManyToManyField('Role', blank=True)
     completed = models.BooleanField(default=False)
+    completed_by = models.ForeignKey('User', on_delete=models.DO_NOTHING, null=True, blank=True)
     completed_on = models.DateTimeField(null=True, blank=True)
     complete_on_tasks = models.BooleanField(
         default=False,
@@ -65,6 +66,7 @@ class Node(models.Model):
 
         self.completed = True
         self.completed_on = timezone.now()
+        self.completed_by = user
         self.save()
 
         # complete any parents

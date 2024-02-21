@@ -1,4 +1,10 @@
-from state.actions import print_project, do_task, finish_phase  # noqa: F401
+from state.actions import (  # noqa: F401,
+    do_task,
+    finish_phase,
+    print_project,
+    reset,
+    status,
+)
 from state.models import Project, User, Node  # noqa: F401
 
 gandolf = User.objects.get(name='Gandolf')
