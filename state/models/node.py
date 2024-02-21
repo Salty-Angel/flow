@@ -69,14 +69,14 @@ class Node(models.Model):
         self.completed_by = user
         self.save()
 
+        print(f'"{self.title}" completed by {user.name} at {self.completed_on}.')
+
         # complete any parents
         parent = Node.objects.filter(depends_on=self).first()
         if parent and parent.complete_on_tasks:
             siblings = parent.depends_on.all()
             if all((s.completed for s in siblings)):
                 parent.complete(user)
-
-        print(f'"{self.title}" completed by {user.name} at {self.completed_on}.')
 
     def validate_completion(self, user):
         msgs = []
