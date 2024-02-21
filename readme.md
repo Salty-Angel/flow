@@ -4,6 +4,7 @@ requirements:
 `pip install django`
 
 `$> python manage.py shell`
+
 `>>> from init_demo import *`
 
 
@@ -14,15 +15,15 @@ Available users -> role:
 - gary ->  DM
 
 Actions
- - do_task(pk, user)
+ - `do_task(pk, user)`
      Mark a task as completed
- - finish_phase(pk, user)
+ - `finish_phase(pk, user)`
      Mark a phase as completed
- - print_project(proj)
+ - `print_project(proj)`
      Show the project as a tree
- - status(proj)
+ - `status(proj)`
      Show info about project
- - reset(proj)
+ - `reset(proj)`
      Reset the completion status of the project
 
 
