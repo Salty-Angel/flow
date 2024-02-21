@@ -80,7 +80,7 @@ class Node(models.Model):
         msgs = []
         roles = self.can_be_completed_by.all()
         if roles.exists() and not roles.filter(user=user):
-            msgs.append(f'Requires user to have {[r.name for r in roles.all()]}.')
+            msgs.append(f'Requires user to have role of {[r.name for r in roles.all()]}.')
         return msgs
 
     def validate_phase_completion(self):

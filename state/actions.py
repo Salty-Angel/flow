@@ -2,7 +2,9 @@ from state.models import Node
 
 
 def print_project(project):
+    print('\n\n')
     project.head.display()
+    print('\n\n')
 
 
 def do_task(task_id, user):
