@@ -8,15 +8,18 @@ class NodeType(models.TextChoices):
 
 
 class Node(models.Model):
-    can_be_completed_by = models.ManyToManyField('Role')
+    can_be_completed_by = models.ManyToManyField('Role', blank=True)
     completed = models.BooleanField(default=False)
     completed_on = models.DateTimeField(null=True, blank=True)
-    depends_on = models.ManyToManyField('Node', related_name='children')
+    depends_on = models.ManyToManyField('Node', related_name='children', blank=True)
     description = models.TextField()
-    follows = models.ManyToManyField('Node', related_name='parents')
+    follows = models.ManyToManyField('Node', related_name='parents', blank=True)
     project = models.ForeignKey('Project', on_delete=models.DO_NOTHING)
     title = models.CharField(max_length=100)
     node_type = models.CharField(max_length=50, choices=NodeType.choices, default=NodeType.PHASE)
+
+    def __str__(self):
+        return f'<NODE> {self.title}'
 
     def complete(self):
         self.completed = True
