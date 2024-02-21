@@ -6,7 +6,7 @@ from state.models.node import NodeType
 
 @admin.register(models.Project)
 class ProjectAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'head')
 
 
 @admin.register(models.Role)
@@ -14,9 +14,20 @@ class RoleAdmin(admin.ModelAdmin):
     pass
 
 
+@admin.register(models.User)
+class UserAdmin(admin.ModelAdmin):
+    pass
+
+
 @admin.register(models.Node)
 class NodeAdmin(admin.ModelAdmin):
-    list_display = ('project', 'title', 'completed')
+    list_display = (
+        'id',
+        'title',
+        'node_type',
+        'completed',
+        'requires_role',
+    )
     list_filter = (
         'project',
         'completed',
@@ -34,6 +45,9 @@ class NodeAdmin(admin.ModelAdmin):
                     ('title', 'description'),
                     'node_type',
                     ('completed', 'completed_on'),
+                    'complete_on_tasks',
+                    'requires_prior',
+                    'requires_tasks',
                 )
             },
         ),
@@ -56,6 +70,9 @@ class NodeAdmin(admin.ModelAdmin):
             },
         ),
     )
+
+    def requires_role(self, obj):
+        return ','.join((r.name for r in obj.can_be_completed_by.all()))
 
     def get_form(self, request, obj=None, **kwargs):
         if obj:
